@@ -39,8 +39,21 @@ module.exports.index = async (req, res) => {
 
     // end pagination
 
+    // Sort
+    let sort = {} ;
 
-    const products = await Product.find(find).sort({ position : "desc" }).limit(objectPagination.limitItem).skip(objectPagination.skip);
+    if(req.query.sortKey && req.query.sortValue ){
+        sort[req.query.sortKey] = req.query.sortValue ;
+    } else {
+        sort.position="desc";
+    }
+
+    
+    // End Sort
+    const products = await Product.find(find)
+        .sort(sort)
+        .limit(objectPagination.limitItem)
+        .skip(objectPagination.skip);
     res.render("admin/pages/products/index", {
         pageTitle: "Danh sách sản phẩm",
         products: products,
@@ -137,9 +150,7 @@ module.exports.createPost = async (req, res) => {
     } else{
         req.body.position= parseFloat(req.body.position);
     }
-    if(req.file){
-        req.body.thumbnail = `/uploads/${req.file.filename}`;
-    }
+    
     const product = new Product(req.body);
     await product.save();
 
@@ -176,10 +187,6 @@ module.exports.editPatch = async (req, res) => {
     req.body.position= parseFloat(req.body.position);
 
 
-    
-    if(req.file){
-        req.body.thumbnail = `/uploads/${req.file.filename}`;
-    }
     try {
         await Product.updateOne({ _id : id } ,  req.body)
         req.flash("success", `Cập nhật sản phẩm thành công!`);
