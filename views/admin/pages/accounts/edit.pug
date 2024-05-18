@@ -3,7 +3,7 @@ include ../../mixins/alert.pug
 
 block main
     
-    if(role.permissions.includes('account_edit'))
+    if(role.permissions.includes('accounts_edit'))
         +alert-success(5000)
         +alert-error(5000)
 
