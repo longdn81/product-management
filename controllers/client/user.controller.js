@@ -2,6 +2,8 @@ const md5 = require("md5")
 const User = require("../../models/user.model")
 const ForgotPassword = require("../../models/forgot-password.model")
 
+const Cart = require("../../models/cart.model")
+
 
 const generateHelper =require("../../helpers/generate")
 
@@ -74,7 +76,20 @@ module.exports.loginPost = async (req, res) => {
         res.redirect("back"); 
         return;
     }
-
+    const cart = await Cart.findOne({
+        user_id: user.id
+    })
+        
+    if(cart) { 
+        res.cookie("cartId", cart.id); 
+    } else{
+        await Cart.updateOne({
+            _id: req.cookies.cartId
+        }, {    
+            user_id: user.id
+        });
+    }
+   
     res.cookie("tokenUser",user.tokenUser);
     
     res.redirect("/")
@@ -83,6 +98,7 @@ module.exports.loginPost = async (req, res) => {
 // [GET] /user/logout
 module.exports.logout = async (req, res) => {
     res.clearCookie("tokenUser");
+    res.clearCookie("cartId");
     res.redirect("/")
 }
 
@@ -184,4 +200,11 @@ module.exports.resetPasswordPost = async (req, res) => {
     });
 
     res.redirect("/");
+}
+
+// [GET] /user/info
+module.exports.info = async (req, res) => {
+    res.render("client/pages/user/info" ,{
+        pageTitle : "Thong tin  tai khoan",
+    });
 }
