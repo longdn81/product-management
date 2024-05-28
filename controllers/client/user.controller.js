@@ -161,10 +161,11 @@ module.exports.otpPasswordPost = async (req, res) => {
     const email = req.body.email ;
     const otp = req.body.otp ;
 
-    const result = await ForgotPassword.findOne( {
+    const result = await ForgotPassword.findOne({
         email: email, 
         otp : otp
     });
+    console.log(result);
     
     if(!result){
         req.flash ("error", "OTP không hợp lệ!"); 
