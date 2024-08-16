@@ -6,6 +6,9 @@ const flash = require('express-flash')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
+// Socket io
+const http = require('http');
+const { Server } = require("socket.io");
 
 const moment  = require('moment')
 
@@ -23,7 +26,11 @@ database.connect();
 const app = express();
 const port = process.env.PORT;
 
-
+// Socket io
+const server = http.createServer(app);
+const io = new Server(server);
+global._io = io ;
+// End socket
 
 app.use(methodOverride('_method'))
 
@@ -57,6 +64,6 @@ app.get("*", (req, res) => {
 });
 
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 });

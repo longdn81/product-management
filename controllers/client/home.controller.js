@@ -7,7 +7,7 @@ module.exports.index = async (req, res) => {
     const productsFeatured =  await Product.find({
         featured: "1",
         deleted: false,
-        status: "active" }).limit(6);
+        status: "active" }).limit(8);
         const newProducts = productsHelper.priceNewProducts(productsFeatured);
     // Hết Lấy ra sản phẩm nổi bật
 
@@ -15,7 +15,7 @@ module.exports.index = async (req, res) => {
     const productsNew = await Product.find({
         deleted: false,
         status: "active"
-    }).sort({position: "desc" }).limit(6);
+    }).sort({position: "desc" }).limit(8);
     const newProductsNew = productsHelper.priceNewProducts (productsNew); 
     // Hết Hiển thị danh sách sản phẩm mới nhất
     res.render("client/pages/home/index" ,{
