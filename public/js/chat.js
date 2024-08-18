@@ -1,12 +1,25 @@
+// file-upload-with-preview
+const upload = new 
+FileUploadWithPreview.FileUploadWithPreview('upload-image' ,{
+    multiple : true ,
+    maxFileCount : 8 ,
+});
+
 // CLIENT_SENT
 const formSendData = document.querySelector(".chat .inner-form");
 if (formSendData) {
     formSendData.addEventListener("submit", (e) => {
         e.preventDefault();
         const content = e.target.elements.content.value;
-        if (content) {
-            socket.emit("CLIENT_SENT", content);
+        const image = upload.cachedFileArray ;
+
+        if (content || image.length > 0) {
+            socket.emit("CLIENT_SENT", {
+                content : content ,
+                image : image
+            });
             e.target.elements.content.value = "";
+            upload.resetPreviewPanel();
             socket.emit("CLIENT_SEND_TYPING", "hidden")
         }
     });
@@ -22,6 +35,8 @@ socket.on("SERVER_RETURN", (data) => {
 
     const div = document.createElement("div");
     let htmlFullName = "";
+    let htmlContent = "";
+    let htmlImages = "";
 
     if (myId == data.userId) {
         div.classList.add("inner-outgoing")
@@ -29,9 +44,20 @@ socket.on("SERVER_RETURN", (data) => {
         htmlFullName = `<div class="inner-name">${data.fullName}</div>`;
         div.classList.add("inner-incoming")
     };
+    if(data.content){
+        htmlContent= `<div class="inner-content">${data.content}</div>`
+    }
+    if(data.images.length > 0){
+        htmlImages += `<div class="inner-images">`
+        for (const image of data.images) {
+            htmlImages += `<img src="${image}"> `
+        } 
+        htmlImages += `</div>`
+    }
     div.innerHTML = `
         ${htmlFullName}
-        <div class="inner-content">${data.content}</div>
+        ${htmlContent}
+        ${htmlImages}
     `;
 
     body.insertBefore(div, boxTyping);
