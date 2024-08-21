@@ -15,6 +15,13 @@ const userSchema = new mongoose.Schema({
         type :String ,
         default : "active" ,
     } ,
+    requestFriends: Array, // da gui
+    acceptFriends: Array,  // da nhan
+    FriendsList: 
+    [{
+        user_id: String,
+        room_chat_ids :String,
+    }], 
     deleted: {
         type : Boolean,
         default : false

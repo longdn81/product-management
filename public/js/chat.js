@@ -63,6 +63,8 @@ socket.on("SERVER_RETURN", (data) => {
     body.insertBefore(div, boxTyping);
 
     body.scrollTop = body.scrollHeight;
+    // Preview images
+    const gallery = new Viewer(div);
 
     const tooltip = document.querySelector('.tooltip.shown');
     if (tooltip) {
@@ -168,3 +170,11 @@ if (elementListTyping) {
 }
 
 // End SERVER_RETURN_TYPING
+
+// Preview full images
+const bodyChatPreviewImage = document.querySelector(".chat .inner-body");
+if(bodyChatPreviewImage){
+    const gallery = new Viewer(bodyChatPreviewImage);
+}
+
+// End Preview full images

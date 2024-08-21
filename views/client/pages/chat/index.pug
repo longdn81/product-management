@@ -2,10 +2,10 @@ extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 
 block main
-    +alert-success(5000)
-    +alert-error(5000)
+    
+    .container.my-3
 
-    .container.my-3 
+        include ../../partials/list-btn-users 
         .row 
             .col-12 
                 +box-head(pageTitle)
@@ -49,4 +49,7 @@ block main
                                 i.fa-solid.fa-paper-plane
 
         div(class="tooltip" , role="tooltip")
-            emoji-picker              
+            emoji-picker 
+                         
+block script 
+    script(type="module" ,src="/js/chat.js")
