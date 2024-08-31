@@ -549,29 +549,37 @@ footer p {
 .box-user .inner-info {
     flex: 1;
 }
+
 .box-user .inner-info .inner-name {
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 3px;
 }
+
 .box-user [btn-cancel-friend] {
     display: none;
 }
+
 .box-user.add [btn-add-friend] {
     display: none;
 }
+
 .box-user.add [btn-cancel-friend] {
     display: inline-block;
 }
+
 .box-user [btn-deleted-friend] {
     display: none;
 }
+
 .box-user.refuse [btn-accept-friend] {
     display: none;
 }
+
 .box-user.refuse [btn-refuse-friend] {
     display: none;
 }
+
 .box-user.refuse [btn-deleted-friend] {
     display: inline-block;
 }
@@ -579,14 +587,27 @@ footer p {
 .box-user [btn-accepted-friend] {
     display: none;
 }
+
 .box-user.accepted [btn-accept-friend] {
     display: none;
 }
+
 .box-user.accepted [btn-refuse-friend] {
     display: none;
 }
+
 .box-user.accepted [btn-accepted-friend] {
     display: inline-block;
 }
-/* / End box-user/ */
 
+.box-user .inner-status {
+    font-size: 12px;
+    color: green;
+    opacity: 0;
+}
+
+.box-user .inner-status[status="online"] {
+    opacity: 1;
+}
+
+/* / End box-user/ */
