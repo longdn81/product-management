@@ -154,7 +154,7 @@ module.exports.forgotPasswordPost = async (req, res) => {
     const objectForgotPassword = {
         email : email ,
         otp : otp ,
-        expireAt : Date.now(),
+        expireAt : Date.now() + 5 * 60 * 1000,
     }
 
     const forgotPassword = new ForgotPassword(objectForgotPassword);
