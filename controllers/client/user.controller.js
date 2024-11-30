@@ -229,7 +229,29 @@ module.exports.resetPasswordPost = async (req, res) => {
 
 // [GET] /user/info
 module.exports.info = async (req, res) => {
+    const tokenUser = req.cookies.tokenUser;
+    const user = await User.findOne({
+        tokenUser : tokenUser
+    }).select(" fullName email FriendsList");
+    
+    const friendList = user.FriendsList;
+    const friendListId = friendList.map(item => item.user_id);
+
+    const users = await User.find({
+        _id: {
+            $in: friendListId
+        },
+        status: "active",
+        deleted: false,
+    }).select("id avatar fullName statusOnline");
+
+    for (const user of users) {
+        const infoFriend = friendList.find(friend => friend.user_id == user.id);
+        user.infoFriend = infoFriend ;
+    }
     res.render("client/pages/user/info" ,{
-        pageTitle : "Thong tin  tai khoan",
+        pageTitle : "Thông tin tài khoản",
+        user : user ,
+        infoFriend : users
     });
 }

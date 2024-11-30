@@ -944,3 +944,36 @@ footer p {
     margin-bottom: 3px;
 }
 /* End box room */
+/* profile user*/
+.profile {
+    margin-bottom: 30px;
+}
+
+.profile h2, .friends-list h2 {
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.profile p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 8px 0;
+}
+
+.friends-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.friends-list ul li {
+    font-size: 1rem;
+    padding: 8px;
+    background: #f9f9f9;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* end profile user */

@@ -4,11 +4,37 @@ include ../../mixins/box-head.pug
 
 
 block main
-
     .container.my-3 
         .row 
             .col-12 
                 +box-head(pageTitle)
+        .row 
+            .profile
+                h2 Thông Tin Chính
+                if (user.fullName)
+                    p
+                        strong Họ Tên:
+                        |  #{user.fullName}
+                if (user.email)
+                    p
+                        strong Email:
+                        |  #{user.email}
+                if (user.phone)
+                    p
+                        strong Số Điện Thoại:
+                        |  #{user.phone}
+        .row
+            .friends-list
+                h2 Danh Sách Bạn Bè
+                ul
+                    each item in infoFriend
+                        li #{item.fullName}
+                    
 
+            //- a( 
+            //-     href=`user/info/edit` 
+            //-     class="btn btn-primary"
+            //- ) Chỉnh sửa thông tin
+        
 
     
