@@ -6,6 +6,10 @@ const productsHelper = require("../../helpers/products")
 module.exports.index = async (req, res) => {
     const keyword = req.query.keyword ;
     
+    if(!keyword){
+        res.redirect("/");
+        return;
+    }
     let newProduct =[];
 
     if(keyword){

@@ -23,8 +23,6 @@ module.exports.index = async (req, res) => {
         chat.infoUser = infoUser;
     }
 
-
-
     res.render("client/pages/chat/index", {
         pageTitle: "chat",
         chats: chats,

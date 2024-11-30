@@ -1,6 +1,5 @@
 // file-upload-with-preview
-const upload = new 
-FileUploadWithPreview.FileUploadWithPreview('upload-image' ,{
+const upload = new FileUploadWithPreview.FileUploadWithPreview('upload-image' ,{
     multiple : true ,
     maxFileCount : 8 ,
 });
